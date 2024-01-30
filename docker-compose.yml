@@ -1,24 +1,42 @@
 version: '3'
 services:
-  redis-queue-app:
-    image: redis-queue-app
+  report-app:
+    image: report-app
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: report/Dockerfile
+    links:
+      - redis-server
     ports:
       - "8080:8080"
     environment:
-      - REDIS_HOST=redis
+      - "spring.data.redis.host=redis-server"
     networks:
-      - redis-queue
+      - queue-network
 
-  redis:
-    container_name: redis
-    image: redis:latest
-    ports:
-      - "6379:6379"
+  image-processing-app:
+    image: image-processing-app
+    build:
+      context: .
+      dockerfile: image-processing/Dockerfile
+    environment:
+      - "spring.data.redis.host=redis-server"
+      - "backend.update-report-status-url=http://report-app:8080/v1/report/status"
+    links:
+      - redis-server
     networks:
-      - redis-queue
+      - queue-network
+
+  redis-server:
+    image: redis:latest
+    hostname: redis-server
+#    ports:
+#      - "6379:6379"
+#      - "8001:8001"
+#    environment:
+#      - REDIS_REPLICATION_MODE=master
+    networks:
+      - queue-network
 
 networks:
-  redis-queue:
+  queue-network:

@@ -11,8 +11,13 @@
 	<groupId>com.ungoodman.github</groupId>
 	<artifactId>redis-queue</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>redis-queue</name>
 	<description>Demo project for Spring Boot</description>
+	<modules>
+		<module>report</module>
+		<module>image-processing</module>
+	</modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -29,6 +34,11 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.16.0</version>
 		</dependency>
 
 		<dependency>
@@ -58,7 +68,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>redis-queue</finalName>
 	</build>
 
 </project>
