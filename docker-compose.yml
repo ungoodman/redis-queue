@@ -3,8 +3,8 @@ services:
   report-app:
     image: report-app
     build:
-      context: .
-      dockerfile: report/Dockerfile
+      context: report
+      dockerfile: Dockerfile
     links:
       - redis-server
     ports:
@@ -17,8 +17,8 @@ services:
   image-processing-app:
     image: image-processing-app
     build:
-      context: .
-      dockerfile: image-processing/Dockerfile
+      context: image-processing
+      dockerfile: Dockerfile
     environment:
       - "spring.data.redis.host=redis-server"
       - "backend.update-report-status-url=http://report-app:8080/v1/report/status"
