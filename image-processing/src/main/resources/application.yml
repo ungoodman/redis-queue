@@ -11,5 +11,5 @@ spring:
     port: 6379
 
 backend:
-  update-report-status-url: localhost:8080/v1/report/status
+  update-report-status-url: http://localhost:8080/v1/report/status
 
